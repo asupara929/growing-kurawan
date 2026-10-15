@@ -1,67 +1,104 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>若者向けアプリ くらわん（育成アプリ）</title>
+  <style>
+    /* スマホ向けレイアウト＆デザイン */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      font-family: sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyATuQVQRz07FaxLnM7kFv3LG7ZxlLWonNE",
-  authDomain: "growing-kurawan.firebaseapp.com",
-  projectId: "growing-kurawan",
-  storageBucket: "growing-kurawan.firebasestorage.app",
-  messagingSenderId: "132473860696",
-  appId: "1:132473860696:web:9ceee9910bce1d3d27902d",
-  measurementId: "G-ZNRTFNJVMP"
-};
+    #game-container {
+      width: 100%;
+      height: 50vh;
+      background-color: #e0f7fa;
+    }
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-// --- Phaser.js 基本設定 ---
-const config = {
-  type: Phaser.AUTO,
-  width: window.innerWidth,
-  height: window.innerHeight * 0.6,
-  parent: 'game-container',
-  backgroundColor: '#e0f7fa',
-  scene: {
-    preload: preload,
-    create: create
-  }
-};
+    #status-bar {
+      padding: 15px;
+      font-size: 1.2rem;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd;
+    }
 
-const game = new Phaser.Game(config);
-let pet;
+    #controls {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 15px;
+      padding: 20px;
+      background: #ffffff;
+    }
 
-function preload() {
-  // 画像の読み込み（プレースホルダー画像を使用）
-  this.load.image('kurawanko', 'https://via.placeholder.com/150/FFB6C1/000000?text=Kurawanko');
-}
+    .btn-group {
+      display: flex;
+      justify-content: space-around;
+      gap: 10px;
+    }
 
-function create() {
-  // キャラクター（くらわんこ）を表示
-  pet = this.add.sprite(window.innerWidth / 2, window.innerHeight * 0.3, 'kurawanko');
-}
+    button {
+      flex: 1;
+      padding: 15px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: background 0.2s;
+    }
 
-// --- ボタン処理 ---
-let coins = 100; // 初期コイン
+    button:active {
+      background-color: #45a049;
+      transform: translateY(2px);
+    }
 
-document.getElementById('btn-feed').addEventListener('click', () => {
-  alert('くらわんこにごはんをあげました！');
-});
+    #btn-gacha-10 {
+      background-color: #ff9800; /* 10連は目立つようにオレンジ色 */
+    }
+    #btn-gacha-10:active {
+      background-color: #e68a00;
+    }
+  </style>
 
-document.getElementById('btn-gacha').addEventListener('click', () => {
-  if (coins >= 30) {
-    coins -= 30; // 30S消費
-    document.getElementById('coin-count').innerText = coins;
-    alert('ガチャを引きました！クーポンを獲得！');[cite: 1]
-  } else {
-    alert('コインが足りません！');
-  }
-});
+  <!-- Phaser.js（無料2Dゲームエンジン）を読み込み -->
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+</head>
+<body>
 
-document.getElementById('btn-camera').addEventListener('click', () => {
-  alert('カメラ機能を起動します');[cite: 1]
-});
+  <!-- ゲーム画面（くらわんこのお部屋）が表示されるエリア -->
+  <div id="game-container"></div>
+
+  <!-- ステータス表示（所持コイン） -->
+  <div id="status-bar">
+    <span>所持コイン: <strong id="coin-count">300</strong> S</span>
+  </div>
+
+  <!-- アクションボタン群 -->
+  <div id="controls">
+    <div class="btn-group">
+      <button id="btn-feed">ごはんをあげる</button>
+      <button id="btn-camera">写真をとる</button>
+    </div>
+    <div class="btn-group">
+      <button id="btn-gacha">単発ガチャ (30S)</button>
+      <button id="btn-gacha-10">1日10連ガチャ!! (300S)</button>
+    </div>
+  </div>
+
+  <!-- ゲームの動作やガチャのプログラムを読み込み -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
