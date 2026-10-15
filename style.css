@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+#game-container {
+  width: 100vw;
+  height: 60vh;
+  margin: 0 auto;
+}
+
+#status-bar {
+  padding: 10px;
+  font-size: 1.2rem;
+  background: #ffffff;
+}
+
+#controls {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+}
+
+button {
+  padding: 12px 18px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>くらわん 育成ゲーム</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Phaser.js（無料2Dゲームエンジン）を読み込み -->
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+</head>
+<body>
+  <div id="game-container"></div>
+
+  <!-- ステータス表示 -->
+  <div id="status-bar">
+    <span>所持コイン: <strong id="coin-count">0</strong>枚</span>
+  </div>
+
+  <!-- アクションボタン -->
+  <div id="controls">
+    <button id="btn-feed">ごはんをあげる</button>
+    <button id="btn-gacha">ガチャ (30S)</button>
+    <button id="btn-camera">写真をとる</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
